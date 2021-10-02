@@ -5,17 +5,21 @@ using UnityEngine;
 public static class LevelManager
 {
     public static PlayerController player;
+    public static EnemySpawner spawner;
     public const int GRIDW = 5;
     public const int GRIDH = 4;
 
     private const int NBULLETS = 40;
+    private const int NPICKUPS = 20;
     private static int maxEnemies;
 
     public static int[,] EnemyGrid { get; private set; }
 
     private static Transform BulletHolder;
+    private static Transform PickUpHolder;
     private static Transform EnemyHolder;
     private static List<BulletController> bullets;
+    private static List<GunPickup> pickups;
     private static List<EnemyController> enemies;
 
     public static void PrepareBullets(GameObject bulletPrefab)
@@ -33,6 +37,24 @@ public static class LevelManager
             BulletController bulletController = bullet.GetComponent<BulletController>();
             bullets.Add(bulletController);
             bullet.SetActive(false);
+        }
+    }
+
+    public static void PreparePickups(GameObject pickupPrefab)
+    {
+        if (pickups != null && pickups.Count > 0)
+            return;
+
+        pickups = new List<GunPickup>();
+
+        PickUpHolder = new GameObject("PICKUP_HOLDER").transform;
+
+        for (int i = 0; i < NPICKUPS; i++)
+        {
+            GameObject pickup = GameObject.Instantiate(pickupPrefab, PickUpHolder);
+            GunPickup gunPickup = pickup.GetComponent<GunPickup>();
+            pickups.Add(gunPickup);
+            pickup.SetActive(false);
         }
     }
 
@@ -57,13 +79,25 @@ public static class LevelManager
 
 
 
-    public static void SpawnBullet(Vector3 position, Vector3 direction, bool friendly = false, float moveSpeed = 10f, float life = 7f)
+    public static void SpawnBullet(Vector3 position, Vector3 direction, bool friendly = false, float moveSpeed = 10f, float life = 7f, int damage = 3, bool critical = false)
     {
         for (int i = 0; i < NBULLETS; i++)
         {
-            if(!bullets[i].gameObject.activeSelf)
+            if (!bullets[i].gameObject.activeSelf)
             {
-                bullets[i].Spawn(position, direction, friendly, moveSpeed, life);
+                bullets[i].Spawn(position, direction, friendly, moveSpeed, life, damage, critical);
+                break;
+            }
+        }
+    }
+
+    public static void SpawnPickup(Vector3 position, float percentGunHealth)
+    {
+        for (int i = 0; i < NPICKUPS; i++)
+        {
+            if (!pickups[i].gameObject.activeSelf)
+            {
+                pickups[i].Spawn(position, percentGunHealth);
                 break;
             }
         }
@@ -142,9 +176,9 @@ public static class LevelManager
     public static Vector3 GetSlot3dPosition(int[] xy)
     {
         return new Vector3(
-            player.transform.position.x + (xy[0] - (GRIDW - 1) / 2) * player.enemyGridWidth / (GRIDW + 1),
+            player.transform.position.x + (xy[0] - (GRIDW - 1) / 2) * spawner.enemyGridWidth / (GRIDW + 1),
             0f,
-            player.transform.position.z - (xy[1] - (GRIDH - 1)) * player.enemyGridHeight / (GRIDH + 1) - player.enemyGridOffset
+            player.transform.position.z - (xy[1] - (GRIDH - 1)) * spawner.enemyGridHeight / (GRIDH + 1) - spawner.enemyGridOffset
             );
     }
 

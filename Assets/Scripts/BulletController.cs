@@ -6,9 +6,11 @@ public class BulletController : MonoBehaviour
 {
     public float MoveSpeed = 10f;
     public float Life = 7f;
+    public int damage = 3;
     public Material friendlyMat;
     public Material enemyMat;
     public MeshRenderer colorRenderer;
+    public MeshRenderer opaqueRenderer;
 
     private float spawnTime;
     private Vector3 moveDirection;
@@ -33,15 +35,39 @@ public class BulletController : MonoBehaviour
 
     }
 
-    public void Spawn(Vector3 position, Vector3 direction, bool friendly = false, float moveSpeed = 10f, float life = 7f)
+    public void Spawn(Vector3 position, Vector3 direction, bool friendly = false, float moveSpeed = 10f, float life = 7f, int damage = 3, bool critical = false)
     {
-        transform.gameObject.SetActive(true);
+        if (critical)
+        {
+            opaqueRenderer.enabled = false;
+            transform.localScale = Vector3.one*1.5f;
+        }
+        else
+        {
+            opaqueRenderer.enabled = true;
+            transform.localScale = Vector3.one;
+        }
         spawnTime = Time.time;
         moveDirection = direction;
         this.transform.position = position;
         this.friendly = friendly;
         this.MoveSpeed = moveSpeed;
         this.Life = life;
+        this.damage = damage;
         colorRenderer.material = friendly ? friendlyMat : enemyMat;
+        transform.gameObject.SetActive(true);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        HitBox hitBox = other.GetComponent<HitBox>();
+        if (hitBox!=null)
+        {
+            if ((hitBox.tank is PlayerController && !friendly) || (hitBox.tank is EnemyController && friendly))
+            {
+                hitBox.tank.GetHit(damage);
+                transform.gameObject.SetActive(false);
+            }
+        }
     }
 }

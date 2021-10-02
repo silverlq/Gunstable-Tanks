@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1138150083837099054}
   - component: {fileID: 3447732209039528838}
+  - component: {fileID: 6676625524156021811}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -44,11 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e9d2f873b0c0e438fab025e5d83493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 10
+  MoveSpeed: 9
   Life: 7
+  damage: 3
   friendlyMat: {fileID: 2100000, guid: 20c44926631b1c24e897e73d434decae, type: 2}
   enemyMat: {fileID: 2100000, guid: 8c5a180801059da4a94b4808ec305d22, type: 2}
   colorRenderer: {fileID: 4158461010987305123}
+  opaqueRenderer: {fileID: 2716514729563035081}
+--- !u!135 &6676625524156021811
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5938971654362017623}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8782989896672988347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,6 +133,11 @@ PrefabInstance:
 --- !u!4 &9109035728166497104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e1849a569d9a8244aa981e6bf2704e6c, type: 3}
+  m_PrefabInstance: {fileID: 8782989896672988347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2716514729563035081 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2571118854743697038, guid: e1849a569d9a8244aa981e6bf2704e6c, type: 3}
   m_PrefabInstance: {fileID: 8782989896672988347}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &4158461010987305123 stripped

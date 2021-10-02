@@ -667,7 +667,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.494
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -682,7 +682,7 @@ Canvas:
   m_GameObject: {fileID: 566035345}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 1219114465}
   - component: {fileID: 1219114464}
   - component: {fileID: 1219114463}
+  - component: {fileID: 1219114467}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -1350,6 +1351,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1219114467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219114462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bce8d86a42cf146b211b99e7a52738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1221903717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 318.00006, y: 189.1}
+  m_AnchoredPosition: {x: 318.00006, y: 185.44}
   m_SizeDelta: {x: 115, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775021577
@@ -2395,21 +2408,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 624649859915426424, guid: 462d25a24008478438869048860d2f55, type: 3}
+      propertyPath: ProgressSlider
+      value: 
+      objectReference: {fileID: 543274433}
+    - target: {fileID: 624649859915426424, guid: 462d25a24008478438869048860d2f55, type: 3}
+      propertyPath: GunHealthSlider
+      value: 
+      objectReference: {fileID: 386404768}
+    - target: {fileID: 624649859915426424, guid: 462d25a24008478438869048860d2f55, type: 3}
+      propertyPath: CoreHealthSlider
+      value: 
+      objectReference: {fileID: 801137705}
     - target: {fileID: 624649859915426425, guid: 462d25a24008478438869048860d2f55, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 624649859915426425, guid: 462d25a24008478438869048860d2f55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01247561
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 624649859915426425, guid: 462d25a24008478438869048860d2f55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5140501
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 624649859915426425, guid: 462d25a24008478438869048860d2f55, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.080081
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 624649859915426425, guid: 462d25a24008478438869048860d2f55, type: 3}
       propertyPath: m_LocalRotation.w
