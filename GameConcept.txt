@@ -1,0 +1,21 @@
+Tank SHMUP game. Gun is unstable and can explode at any minute.
+
+Each shot decreases durability, but there is a % chance of critical failure, where durability is decreased X 10. Incoming damage does the same.
+
+When gun explodes, there is no ranged attack and player must use melee instead.
+
+When enemies die, they drop their own weapons, but they follow the same rules as player, so their gun durability may be low.
+
+Two types of tanks, then boss (Big tank, lol).
+
+Weapon types
+Normal - steady long range pellets
+Machine gun - rapid fire small pellets
+Shotgun - short range, many small pellets
+Sniper - charge time, plus instant high damage (no pellet) *lowest priority
+No gun - charge time, then rams forward, melee damage
+
+Wrench - can be used to repair tank, but while in repair mode cannot move. Wrench breaks after a certain amount of repair.
+
+Health - after gun health is zero, damage goes to core heath. Player dies when core health is zero.
+
