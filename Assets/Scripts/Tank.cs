@@ -67,4 +67,7 @@ public class Tank : MonoBehaviour
     {
         return Quaternion.Lerp(currentRotation, Quaternion.Euler(currentRotation.eulerAngles.x, targetRotation.eulerAngles.y, 0f), smoothing);
     }
+
+    public Vector3 GetMoveVector()
+    { return targetDirection * MoveSpeed;  }
 }

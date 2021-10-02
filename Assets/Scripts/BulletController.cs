@@ -6,10 +6,14 @@ public class BulletController : MonoBehaviour
 {
     public float MoveSpeed = 10f;
     public float Life = 7f;
+    public Material friendlyMat;
+    public Material enemyMat;
+    public MeshRenderer colorRenderer;
 
     private float spawnTime;
     private Vector3 moveDirection;
     private bool friendly = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -38,5 +42,6 @@ public class BulletController : MonoBehaviour
         this.friendly = friendly;
         this.MoveSpeed = moveSpeed;
         this.Life = life;
+        colorRenderer.material = friendly ? friendlyMat : enemyMat;
     }
 }

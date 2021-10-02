@@ -49,12 +49,17 @@ MonoBehaviour:
   RotationSmoothing: 0.1
   BulletSpeed: 14
   BulletLife: 7
-  BulletCooldown: 0.5
+  BulletCooldown: 1
   CoreModel: {fileID: 469722523602470549}
   GunModel: {fileID: 291902366998190704}
-  lockOnDistance: 10
-  gridSlot: -1
+  lockOnDistance: 65
+  gridSlotXY: 
   spawnOffset: 15
+  positionRadius: 2.5
+  positionTurnSpeed: 3
+  targetRadius: 6
+  targetTurnSpeed: 1.5
+  Alive: 0
 --- !u!1001 &508700599943647699
 PrefabInstance:
   m_ObjectHideFlags: 0

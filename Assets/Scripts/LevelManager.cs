@@ -11,7 +11,7 @@ public static class LevelManager
     private const int NBULLETS = 40;
     private static int maxEnemies;
 
-    private static int[,] enemyGrid;
+    public static int[,] EnemyGrid { get; private set; }
 
     private static Transform BulletHolder;
     private static Transform EnemyHolder;
@@ -99,8 +99,8 @@ public static class LevelManager
 
     private static void CreateGrid()
     {
-        enemyGrid = new int[GRIDW, GRIDH];
-        maxEnemies = enemyGrid.Length;
+        EnemyGrid = new int[GRIDW, GRIDH];
+        maxEnemies = EnemyGrid.Length;
         // Enemy position grid (Example 5 x 4)
         // X  X  X  X  X  - 5 positions
         // X  X  X  X  X  - 5 positions
@@ -110,10 +110,10 @@ public static class LevelManager
         {
             for (int y = 0; y < GRIDH; y++)
             {
-                enemyGrid[x, y] = x + y;
+                EnemyGrid[x, y] = x + y;
                 //If one away from player
                 if (Mathf.Abs(x - (GRIDW - 1) / 2) + Mathf.Abs(y - (GRIDH - 1)) <= 1)
-                    enemyGrid[x, y] = -1;
+                    EnemyGrid[x, y] = -1;
             }
         }
 
@@ -121,7 +121,7 @@ public static class LevelManager
 
     public static bool IsSlotFree (int[] xy)
     {
-        if (enemyGrid[xy[0], xy[1]] == -1)
+        if (EnemyGrid[xy[0], xy[1]] == -1)
             return false;
         else if (EnemyAtSlot(xy) != null)
             return false;

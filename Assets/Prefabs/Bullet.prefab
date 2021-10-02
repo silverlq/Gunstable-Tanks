@@ -46,6 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   Life: 7
+  friendlyMat: {fileID: 2100000, guid: 20c44926631b1c24e897e73d434decae, type: 2}
+  enemyMat: {fileID: 2100000, guid: 8c5a180801059da4a94b4808ec305d22, type: 2}
+  colorRenderer: {fileID: 4158461010987305123}
 --- !u!1001 &8782989896672988347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,5 +117,10 @@ PrefabInstance:
 --- !u!4 &9109035728166497104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e1849a569d9a8244aa981e6bf2704e6c, type: 3}
+  m_PrefabInstance: {fileID: 8782989896672988347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4158461010987305123 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4587302668392987624, guid: e1849a569d9a8244aa981e6bf2704e6c, type: 3}
   m_PrefabInstance: {fileID: 8782989896672988347}
   m_PrefabAsset: {fileID: 0}
