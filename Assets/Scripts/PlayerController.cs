@@ -16,18 +16,13 @@ public class PlayerController : Tank
         LevelManager.player = this;
         LevelManager.PrepareBullets(bulletPrefab);
         LevelManager.PrepareEnemies(enemyPrefab);
-        LevelManager.SpawnEnemy(); LevelManager.SpawnEnemy();
+        LevelManager.SpawnEnemy(); LevelManager.SpawnEnemy(); LevelManager.SpawnEnemy(); LevelManager.SpawnEnemy(); LevelManager.SpawnEnemy(); LevelManager.SpawnEnemy();
         base.Start();
     }
 
     // Update is called once per frame
     internal override void Update()
     {
-        for(int i = 0; i < 16; i++)
-        {
-            Debug.DrawRay(LevelManager.GetSlot3dPosition(i), Vector3.up);
-
-        }
         UpdateCursorPosition();
         targetDirection = Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")));
 
@@ -37,6 +32,8 @@ public class PlayerController : Tank
         {
             FireGun();
         }
+
+        DebugEnemyGrid();
     }
 
     private void UpdateCursorPosition()
@@ -55,6 +52,18 @@ public class PlayerController : Tank
             {
                 gunTargetPosition = hitPoint;
                 Debug.DrawRay(hitPoint, Vector3.up);
+            }
+        }
+    }
+
+    private void DebugEnemyGrid()
+    {
+        for (int x = 0; x < LevelManager.GRIDW; x++)
+        {
+            for (int y = 0; y < LevelManager.GRIDH; y++)
+            {
+                if (LevelManager.IsSlotFree(new int[2] { x, y }))
+                    Debug.DrawRay(LevelManager.GetSlot3dPosition(new int[2] { x, y }), Vector3.up);
             }
         }
     }
