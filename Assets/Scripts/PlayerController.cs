@@ -9,6 +9,7 @@ public class PlayerController : Tank
     public GameObject bulletPrefab;
     public GameObject pickupPrefab;
     public GameObject cratePrefab;
+    public GameObject bossPrefab;
 
     public float restartTimer = 3f;
     public float dashInputDelay = 0.27f;
@@ -22,7 +23,8 @@ public class PlayerController : Tank
     public Slider GunHealthSlider;
     public Slider ProgressSlider;
     public TextMeshProUGUI dashText;
-    
+    public List<GameObject> DisableOnWin;
+    public List<GameObject> EnableOnWin;
 
     private float lastSpawnedCrate = 0f;
     private float deathTime = -1;
@@ -41,7 +43,8 @@ public class PlayerController : Tank
         LevelManager.PrepareBullets(bulletPrefab);
         LevelManager.PreparePickups(pickupPrefab);
         LevelManager.PrepareCrates(cratePrefab);
-        
+        LevelManager.PrepareBoss(bossPrefab);
+
         trailRenderer = gameObject.GetComponentInChildren<TrailRenderer>();
         trailRenderer.enabled = false;
         base.Start();
@@ -116,6 +119,9 @@ public class PlayerController : Tank
 
         if (CoreHealth <= 0 && Time.time > deathTime + restartTimer)
             LevelManager.RestartLevel();
+
+        if (!LevelManager.BossSpawned && transform.position.z > TargetTravelDistance)
+            LevelManager.SpawnBoss();
     }
 
     public void ResetLocalVars ()

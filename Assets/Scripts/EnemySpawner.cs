@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextSpawn)
+        if (Time.time > nextSpawn && LevelManager.player.transform.position.z < LevelManager.player.TargetTravelDistance)
         {
             int difficulty = Mathf.RoundToInt(2 * (1 - (LevelManager.player.TargetTravelDistance - LevelManager.player.transform.position.z) / LevelManager.player.TargetTravelDistance));
 

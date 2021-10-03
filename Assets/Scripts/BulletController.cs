@@ -63,7 +63,7 @@ public class BulletController : MonoBehaviour
         HitBox hitBox = other.GetComponent<HitBox>();
         if (hitBox!=null)
         {
-            if ((hitBox.tank is PlayerController && !friendly) || (hitBox.tank is EnemyController && friendly))
+            if ((hitBox.tank is PlayerController && !friendly) || ((hitBox.tank is EnemyController || hitBox.tank is BossGun) && friendly))
             {
                 hitBox.tank.GetHit(damage);
                 transform.gameObject.SetActive(false);

@@ -75,7 +75,7 @@ public class Tank : MonoBehaviour
             GunModel.rotation = BlenderSafeRotate(GunModel.rotation, Quaternion.LookRotation(gunTargetPosition - transform.position, Vector3.up), RotationSmoothing);
     }
 
-    internal void FireGun()
+    public void FireGun()
     {
         if (CanFire())
         {
@@ -112,7 +112,7 @@ public class Tank : MonoBehaviour
             {
                 CoreHealth = 0;
                 explosion.Play();
-                if (this is EnemyController && GunHealth > 0)
+                if ((this is EnemyController || this is BossGun) && GunHealth > 0)
                     LevelManager.SpawnPickup(transform.position, (float)GunHealth/ (float)maxGun);
                 CoreModel.gameObject.SetActive(false);
             }

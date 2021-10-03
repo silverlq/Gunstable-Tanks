@@ -9,6 +9,8 @@ public static class LevelManager
     public const int GRIDW = 5;
     public const int GRIDH = 4;
 
+    public static bool BossSpawned = false;
+
     private const int NBULLETS = 40;
     private const int NPICKUPS = 20;
     private const int NCRATES = 20;
@@ -24,7 +26,7 @@ public static class LevelManager
     private static List<GunPickup> pickups;
     private static List<CratePickup> crates;
     private static List<EnemyController> enemies;
-
+    private static BossController boss;
     public static void PrepareBullets(GameObject bulletPrefab)
     {
         if (bullets != null && bullets.Count > 0)
@@ -77,6 +79,13 @@ public static class LevelManager
             crates.Add(cratePickup);
             crate.SetActive(false);
         }
+    }
+
+    public static void PrepareBoss(GameObject bossPrefab)
+    {
+        GameObject bossObj = GameObject.Instantiate(bossPrefab);
+        boss =  bossObj.GetComponent<BossController>();
+        bossObj.SetActive(false);
     }
     
 
@@ -216,6 +225,15 @@ public static class LevelManager
             );
     }
 
+    public static void SpawnBoss()
+    {
+        BossSpawned = true;
+        spawner.enabled = false;
+        boss.gameObject.SetActive(true);
+        boss.Reset();
+        boss.UpdateBossPosition(true);
+    }
+
     public static void RestartLevel()
     {
         player.CoreHealth = (int)player.maxCore;
@@ -223,12 +241,15 @@ public static class LevelManager
         player.CoreModel.gameObject.SetActive(true);
         player.transform.position = Vector3.zero;
         player.ResetLocalVars();
+        spawner.enabled = true;
         spawner.ResetSpawnTime();
+        BossSpawned = false;
 
         bullets.ForEach(o => { o.gameObject.SetActive(false); });
         crates.ForEach(o => { o.gameObject.SetActive(false); });
         enemies.ForEach(o => { o.gameObject.SetActive(false); });
         pickups.ForEach(o => { o.gameObject.SetActive(false); });
+        boss.gameObject.SetActive(false);
     }
 
 }
