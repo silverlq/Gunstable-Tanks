@@ -14,25 +14,28 @@ public class GroundWrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var xDiff = LevelManager.player.transform.position.x - transform.position.x;
-        var zDiff = LevelManager.player.transform.position.z - transform.position.z;
-        
-        if (xDiff > scaleVector.x)
+        if (LevelManager.player != null)
         {
-            transform.position += new Vector3(scaleVector.x,0f,0f);
-        }
-        else if (xDiff < -scaleVector.x)
-        {
-            transform.position -= new Vector3(scaleVector.x, 0f, 0f);
-        }
+            var xDiff = LevelManager.player.transform.position.x - transform.position.x;
+            var zDiff = LevelManager.player.transform.position.z - transform.position.z;
 
-        if (zDiff > scaleVector.z)
-        {
-            transform.position += new Vector3(0f, 0f,scaleVector.z);
-        }
-        else if (zDiff < -scaleVector.z)
-        {
-            transform.position -= new Vector3(0f, 0f, scaleVector.z);
+            if (xDiff > scaleVector.x)
+            {
+                transform.position += new Vector3(scaleVector.x, 0f, 0f);
+            }
+            else if (xDiff < -scaleVector.x)
+            {
+                transform.position -= new Vector3(scaleVector.x, 0f, 0f);
+            }
+
+            if (zDiff > scaleVector.z)
+            {
+                transform.position += new Vector3(0f, 0f, scaleVector.z);
+            }
+            else if (zDiff < -scaleVector.z)
+            {
+                transform.position -= new Vector3(0f, 0f, scaleVector.z);
+            }
         }
     }
 }
