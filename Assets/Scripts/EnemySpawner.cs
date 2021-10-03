@@ -11,8 +11,6 @@ public class EnemySpawner : MonoBehaviour
     public float[] spawnTime = new float[2] { 4f, 12f };
 
     private float nextSpawn;
-    private float lastDifficultyIncrease;
-    private int difficulty = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +18,6 @@ public class EnemySpawner : MonoBehaviour
         LevelManager.spawner = this;
         LevelManager.PrepareEnemies(enemyPrefab);
         ResetSpawnTime();
-        lastDifficultyIncrease = Time.time;
     }
 
     // Update is called once per frame
@@ -28,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (Time.time > nextSpawn)
         {
+            int difficulty = Mathf.RoundToInt(2 * (1 - (LevelManager.player.TargetTravelDistance - LevelManager.player.transform.position.z) / LevelManager.player.TargetTravelDistance));
+
             int nSpawn = Random.Range(1, difficulty + 1);
             for (int i = 0; i < nSpawn; i++)
             {
@@ -38,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
         DebugEnemyGrid();
     }
 
-    private void ResetSpawnTime()
+    public void ResetSpawnTime()
     {
         nextSpawn = Time.time + Random.Range(spawnTime[0], spawnTime[1]);
     }

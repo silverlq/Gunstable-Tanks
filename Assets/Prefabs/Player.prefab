@@ -297,6 +297,7 @@ MonoBehaviour:
   CoreHealthSlider: {fileID: 0}
   GunHealthSlider: {fileID: 0}
   ProgressSlider: {fileID: 0}
+  dashText: {fileID: 0}
 --- !u!114 &2283415726374503298
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public static class LevelManager
 
     private const int NBULLETS = 40;
     private const int NPICKUPS = 20;
+    private const int NCRATES = 20;
     private static int maxEnemies;
 
     public static int[,] EnemyGrid { get; private set; }
@@ -18,8 +19,10 @@ public static class LevelManager
     private static Transform BulletHolder;
     private static Transform PickUpHolder;
     private static Transform EnemyHolder;
+    private static Transform CrateHolder;
     private static List<BulletController> bullets;
     private static List<GunPickup> pickups;
+    private static List<CratePickup> crates;
     private static List<EnemyController> enemies;
 
     public static void PrepareBullets(GameObject bulletPrefab)
@@ -57,6 +60,25 @@ public static class LevelManager
             pickup.SetActive(false);
         }
     }
+
+    public static void PrepareCrates(GameObject cratePrefab)
+    {
+        if (crates != null && crates.Count > 0)
+            return;
+
+        crates = new List<CratePickup>();
+
+        CrateHolder = new GameObject("CRATE_HOLDER").transform;
+
+        for (int i = 0; i < NCRATES; i++)
+        {
+            GameObject crate = GameObject.Instantiate(cratePrefab, CrateHolder);
+            CratePickup cratePickup = crate.GetComponent<CratePickup>();
+            crates.Add(cratePickup);
+            crate.SetActive(false);
+        }
+    }
+    
 
     public static void PrepareEnemies(GameObject enemyPrefab)
     {
@@ -98,6 +120,18 @@ public static class LevelManager
             if (!pickups[i].gameObject.activeSelf)
             {
                 pickups[i].Spawn(position, percentGunHealth);
+                break;
+            }
+        }
+    }
+
+    public static void SpawnCrate()
+    {
+        for (int i = 0; i < NCRATES; i++)
+        {
+            if (!crates[i].gameObject.activeSelf)
+            {
+                crates[i].Spawn(new Vector3(player.transform.position.x+Random.Range(-1,1)*spawner.enemyGridWidth/3f,0f, player.transform.position.z + spawner.enemyGridHeight * 1.25f)) ;
                 break;
             }
         }
@@ -180,6 +214,21 @@ public static class LevelManager
             0f,
             player.transform.position.z - (xy[1] - (GRIDH - 1)) * spawner.enemyGridHeight / (GRIDH + 1) - spawner.enemyGridOffset
             );
+    }
+
+    public static void RestartLevel()
+    {
+        player.CoreHealth = (int)player.maxCore;
+        player.GunHealth = (int)player.maxGun;
+        player.CoreModel.gameObject.SetActive(true);
+        player.transform.position = Vector3.zero;
+        player.ResetLocalVars();
+        spawner.ResetSpawnTime();
+
+        bullets.ForEach(o => { o.gameObject.SetActive(false); });
+        crates.ForEach(o => { o.gameObject.SetActive(false); });
+        enemies.ForEach(o => { o.gameObject.SetActive(false); });
+        pickups.ForEach(o => { o.gameObject.SetActive(false); });
     }
 
 }

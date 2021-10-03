@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,17 +8,24 @@ public class PlayerController : Tank
 {
     public GameObject bulletPrefab;
     public GameObject pickupPrefab;
+    public GameObject cratePrefab;
 
-    public float dashInputDelay = 0.08f;
+    public float restartTimer = 3f;
+    public float dashInputDelay = 0.27f;
     public float dashCooldown = 1.5f;
     public float dashDuration = 0.3f;
     public float dashSpeed = 4.5f;
     public float maxTrailWidth = 10f;
-    public float TargetTravelDistance = 2000f;
+    public float TargetTravelDistance = 1000f;
+    public float CrateSpawnIntervals = 100f;
     public Slider CoreHealthSlider;
     public Slider GunHealthSlider;
     public Slider ProgressSlider;
+    public TextMeshProUGUI dashText;
+    
 
+    private float lastSpawnedCrate = 0f;
+    private float deathTime = -1;
     private Vector3 dashVector = Vector3.zero;
     private Vector3 lastInputVector;
     private float lastInput = Mathf.NegativeInfinity;
@@ -32,6 +40,8 @@ public class PlayerController : Tank
         LevelManager.player = this;
         LevelManager.PrepareBullets(bulletPrefab);
         LevelManager.PreparePickups(pickupPrefab);
+        LevelManager.PrepareCrates(cratePrefab);
+        
         trailRenderer = gameObject.GetComponentInChildren<TrailRenderer>();
         trailRenderer.enabled = false;
         base.Start();
@@ -42,7 +52,7 @@ public class PlayerController : Tank
     {
         UpdateCursorPosition();
         Vector3 inputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-        if (inputVector.magnitude < 0.1f)
+        if (inputVector.sqrMagnitude < 0.01f)
         { 
             targetDirection = new Vector3(0f, 0f, 0.5f); //Slowly go up if no input
             noInput = true;
@@ -81,8 +91,13 @@ public class PlayerController : Tank
             dashVector = Vector3.zero;
             trailRenderer.enabled = false;
         }
-        //else
-            //trailRenderer.widthMultiplier = (dashDuration - (Time.time - lastDash) / dashDuration) * maxTrailWidth;
+
+        if (CoreHealth <= 0)
+        {
+            targetDirection = Vector3.zero;
+            if (deathTime == -1)
+                deathTime = Time.time;
+        }
 
         base.Update();
 
@@ -91,9 +106,30 @@ public class PlayerController : Tank
             FireGun();
         }
 
+        UpdateUI();
+
+        if(transform.position.z > lastSpawnedCrate + CrateSpawnIntervals)
+        {
+            lastSpawnedCrate = transform.position.z;
+            LevelManager.SpawnCrate();
+        }
+
+        if (CoreHealth <= 0 && Time.time > deathTime + restartTimer)
+            LevelManager.RestartLevel();
+    }
+
+    public void ResetLocalVars ()
+    {
+        lastSpawnedCrate = 0f;
+        deathTime = -1;
+    }
+
+    private void UpdateUI()
+    {
         CoreHealthSlider.value = ((float)CoreHealth / (float)maxCore);
         GunHealthSlider.value = ((float)GunHealth / (float)maxGun);
-        ProgressSlider.value = Mathf.Clamp01(transform.position.z/ TargetTravelDistance) ;
+        ProgressSlider.value = Mathf.Clamp01(transform.position.z / TargetTravelDistance);
+        dashText.text = "DASH".Substring(0,Mathf.RoundToInt(Mathf.Clamp01((Time.time - lastDash)/dashCooldown)*4));
     }
 
     private void UpdateCursorPosition()

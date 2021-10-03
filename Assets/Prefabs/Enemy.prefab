@@ -68,7 +68,7 @@ MonoBehaviour:
   spawnOffset: 15
   positionRadius: 2.5
   positionTurnSpeed: 4
-  targetRadius: 6
+  targetRadius: 8.5
   targetTurnSpeed: 1.5
   targetSmoothing: 0.1
   moveTime: 4

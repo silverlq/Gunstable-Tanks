@@ -42,11 +42,11 @@ public class Tank : MonoBehaviour
     {
         maxCore = CoreHealth;
         maxGun = GunHealth;
-        bulletSpawnPoint = GunModel.GetChild(0);
-        var explosionObj = GameObject.Instantiate(ExplosionPrefab, CoreModel);
+        bulletSpawnPoint = GunModel.transform.GetChild(0);
+        var explosionObj = GameObject.Instantiate(ExplosionPrefab, transform);
         explosion = explosionObj.GetComponent<ParticleSystem>();
         explosion.Stop();
-        var sparksObj = GameObject.Instantiate(SparksPrefab, CoreModel);
+        var sparksObj = GameObject.Instantiate(SparksPrefab, transform);
         sparks = sparksObj.GetComponent<ParticleSystem>();
         sparks.Stop();
     }
@@ -66,7 +66,7 @@ public class Tank : MonoBehaviour
 
         UpdateGunDirection();
 
-        GunModel.gameObject.SetActive(GunHealth > 0);
+        GunModel.gameObject.SetActive(GunHealth > 0 && CoreHealth > 0);
     }
 
     private void UpdateGunDirection()
@@ -131,7 +131,12 @@ public class Tank : MonoBehaviour
 
     public void GetGun(float GunPercentHealth)
     {
-        GunHealth += Mathf.Clamp(Mathf.CeilToInt((float)maxGun * GunPercentHealth), 0, (int)maxGun);
+        GunHealth = Mathf.Clamp(GunHealth + Mathf.CeilToInt((float)maxGun * GunPercentHealth), 0, (int)maxGun);
+    }
+
+    public void GetCore(float CorePercentHealth)
+    {
+        CoreHealth = Mathf.Clamp(CoreHealth + Mathf.CeilToInt((float)maxCore * CorePercentHealth), 0, (int)maxCore);
     }
 
     internal Quaternion BlenderSafeRotate(Quaternion currentRotation, Quaternion targetRotation, float smoothing)

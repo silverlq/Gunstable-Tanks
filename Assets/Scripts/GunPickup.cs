@@ -7,6 +7,7 @@ public class GunPickup : MonoBehaviour
 {
     public float rotateSpeed = 7f;
     public float GunPercentHealth = 1f;
+    public float GuiHeight = 2f;
 
     private Slider slider;
     // Start is called before the first frame update
@@ -49,7 +50,7 @@ public class GunPickup : MonoBehaviour
 
     private void SetSliderPosition()
     {
-        var sliderPos = Camera.main.WorldToScreenPoint(transform.position);
+        var sliderPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0f, GuiHeight, 0f));
         slider.transform.position = sliderPos;
     }
 }

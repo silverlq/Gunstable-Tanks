@@ -448,6 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 30
   GunPercentHealth: 1
+  GuiHeight: 3
 --- !u!1 &6092560954705277660
 GameObject:
   m_ObjectHideFlags: 0

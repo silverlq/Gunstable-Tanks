@@ -78,20 +78,22 @@ public class EnemyController : Tank
         gridSlotXY = gridSlotId;
         Alive = true;
         driveAway = false;
+        transform.position = LevelManager.GetSlot3dPosition(gridSlotXY) + new Vector3(0f, 0f, spawnOffset);
         CoreModel.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         if (maxCore != null)
             CoreHealth = (int)maxCore;
         if (maxGun != null)
             GunHealth = (int)maxGun;
         explosion?.Stop();
         sparks?.Stop();
-        gameObject.SetActive(true);
-        transform.position = LevelManager.GetSlot3dPosition(gridSlotXY) + new Vector3(0f,0f,spawnOffset);
     }
 
     public void Death()
     {
         Alive = false;
+        explosion.Stop();
+        sparks.Stop();
         gameObject.SetActive(false);
     }
 
