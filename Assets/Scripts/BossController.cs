@@ -110,7 +110,7 @@ public class BossController : MonoBehaviour
 
     public void UpdateBossPosition(bool snap = false)
     {
-        transform.position = Vector3.Lerp(transform.position, LevelManager.player.transform.position + new Vector3(0f, 0f, zPosition), snap?1f:positionSmoothing);
+        transform.position = Vector3.Lerp(transform.position, LevelManager.player.transform.position + new Vector3(0f, 0f, snap? zPosition*2 : zPosition), snap?1f:positionSmoothing);
     }
 
 }

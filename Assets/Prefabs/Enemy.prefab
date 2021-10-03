@@ -72,7 +72,7 @@ MonoBehaviour:
   targetTurnSpeed: 1.5
   targetSmoothing: 0.1
   moveTime: 4
-  playerSpeedMultiplier: 1.5
+  playerSpeedMultiplier: 1.25
   exitSpeedMultiplier: 1.5
   Alive: 0
 --- !u!54 &4079324779336283162

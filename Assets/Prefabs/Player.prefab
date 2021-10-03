@@ -296,7 +296,7 @@ MonoBehaviour:
   dashDuration: 0.3
   dashSpeed: 4.5
   maxTrailWidth: 10
-  TargetTravelDistance: 100
+  TargetTravelDistance: 325
   CrateSpawnIntervals: 80
   CoreHealthSlider: {fileID: 0}
   GunHealthSlider: {fileID: 0}
